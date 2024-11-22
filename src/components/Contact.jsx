@@ -17,8 +17,50 @@ const Contact = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {};
-  const handleSubmit = (e) => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        "service_uvivnpw",
+        "template_byss704",
+        {
+          from_name: form.name,
+          to_name: "fatma",
+          reply_to: form.email, // Use this for the actual sender's email
+          to_email: "fatma.amr6197@gmail.com",
+          message: form.message,
+        },
+        "R_ppmS9fUIaUHyFek"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("thank you, I'll get to you as soon as possible ");
+          console.log(form.email);
+
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+        },
+        (error) => {
+          setLoading(false);
+
+          console.log(error);
+          alert("something went wrong..");
+        }
+      );
+  };
+
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
       <motion.div
@@ -47,7 +89,7 @@ const Contact = () => {
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your Email</span>
             <input
-              type="text"
+              type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
@@ -58,7 +100,7 @@ const Contact = () => {
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your Message</span>
             <textarea
-              name="name"
+              name="message"
               value={form.message}
               onChange={handleChange}
               placeholder="what do you want to say?"
