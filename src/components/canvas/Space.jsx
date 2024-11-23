@@ -18,7 +18,7 @@ const Earth = ({ isMobile }) => {
   return (
     <primitive
       object={earth.scene}
-      scale={isMobile ? 5 : 2.5}
+      scale={isMobile ? 5 : 3}
       position={[0, 0, 0]}
       frustumCulled={true}
       renderOrder={1}
