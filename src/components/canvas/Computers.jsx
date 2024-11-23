@@ -12,7 +12,7 @@ const Computers = ({ isMobile }) => {
 
   return (
     <mesh>
-      <hemisphereLight groundColor="black" intensity={7} />
+      <hemisphereLight groundColor="black" intensity={3} />
       <pointLight intensity={2} />
       <primitive
         object={computer.scene}
@@ -26,7 +26,7 @@ const Computers = ({ isMobile }) => {
         penumbra={1}
         intensity={1}
         castShadow
-        shadow-mapSize={1024}
+        shadow-mapSize={512}
       />
     </mesh>
   );
@@ -58,10 +58,13 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-      frameloop="demand"
+      frameloop="always"
       shadows
       camera={{ position: [20, 3, 10], fov: 26 }}
-      gl={{ preserveDrawingBuffer: true }}
+      gl={
+        ({ preserveDrawingBuffer: true },
+        { powerPreference: "high-performance" })
+      }
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls

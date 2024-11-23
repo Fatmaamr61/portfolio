@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
 import { styles } from "../styles";
-import { EarthCanvas } from "./canvas";
+import { MainCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
@@ -29,8 +29,8 @@ const Contact = () => {
 
     emailjs
       .send(
-        "service_uvivnpw",
-        "template_byss704",
+        import.meta.env.VITE_EMAIL_SERVICE,
+        import.meta.env.VITE_EMAIL_TEMP,
         {
           from_name: form.name,
           to_name: "fatma",
@@ -38,7 +38,7 @@ const Contact = () => {
           to_email: "fatma.amr6197@gmail.com",
           message: form.message,
         },
-        "R_ppmS9fUIaUHyFek"
+        import.meta.env.VITE_EMAIL_USER_ID
       )
       .then(
         () => {
@@ -121,7 +121,7 @@ const Contact = () => {
         variants={slideIn("right", "tween", 0.2, 1)}
         className="xl:flex-1 xl:h-auto md:h-[550px] h-[350]"
       >
-        <EarthCanvas />
+        <MainCanvas />
       </motion.div>
     </div>
   );
